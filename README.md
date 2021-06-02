@@ -69,9 +69,9 @@ Used https://github.com/clangd/coc-clangd
 Run `:CocInstall coc-clangd`. After this command `cland` will be downloaded automatically. If you have `clang` installed, you can specify path to it via `:CocConfig`  command and writing path to `clangd` in the given `.json` file. For example, in Mac OS you should write
 
 ```json
-`{`
+{
     "clangd.path": "/usr/local/Cellar/llvm/11.1.0/bin/clangd"
-`}` 
+}
 ```
 
 Install `clangd`:

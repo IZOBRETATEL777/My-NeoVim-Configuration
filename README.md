@@ -92,4 +92,4 @@ Just run `:CocInstall coc-pyright`
 
 ### Greetings
 
-https://youtu.be/ssmFzoZS2G8 - this video helped with Java configuration and inspired to use create this repo.
+https://youtu.be/ssmFzoZS2G8 - this video helped with Java configuration and inspired to create this repo.

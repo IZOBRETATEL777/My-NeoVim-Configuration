@@ -89,7 +89,7 @@ Used https://github.com/fannheyward/coc-pyright
 Just run `:CocInstall coc-pyright`  inside your nvim and install `pynvim` in a terminal by the command:
 
 ```bash
-pip3 install pynvim`
+pip3 install pynvim
 ```
 
 

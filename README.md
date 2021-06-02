@@ -94,6 +94,12 @@ pip3 install pynvim`
 
 
 
+### Snippets
+
+Snippets are provided by [vim-snippets](https://github.com/honza/vim-snippets) package by default. To activate and use it type `:CocInstall coc-snippets` (https://github.com/neoclide/coc-snippets). 
+
+
+
 ### Greetings
 
 https://youtu.be/ssmFzoZS2G8 - this video helped with Java configuration and inspired to create this repo.

@@ -1,4 +1,4 @@
-# My-NeoVim-Configuration
+# My NeoVim Configuration
 
 *My Neovim (nvim) configuration for education and development.* 
 

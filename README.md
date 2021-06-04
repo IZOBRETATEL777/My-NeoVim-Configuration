@@ -40,7 +40,14 @@ sudo snap install --edge nvim --classic
 
 [Other methods of installation are available in the official repository of Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
 
-Instructions for **NodeJS** are also available in [the official repo.](https://github.com/nodesource/distributions/blob/master/README.md)
+
+To install **NodeJS** in the most convinient way, install NodeJS via NVM (Node Version Manager).
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+# restart terminal
+nvm install --lts
+```
+> However, **NodeJS** is available on the [official website](https://nodejs.org/en/).
 
 **Vim-plug** can be installed by the next commands:
 

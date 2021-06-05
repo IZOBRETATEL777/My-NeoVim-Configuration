@@ -44,7 +44,7 @@ sudo snap install --edge nvim --classic
 To install **NodeJS** in the most convinient way, install NodeJS via NVM (Node Version Manager).
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-# restart terminal
+# restart terminal (https://github.com/nvm-sh/nvm#troubleshooting-on-linux)
 nvm install --lts
 ```
 > However, **NodeJS** is available on the [official website](https://nodejs.org/en/).

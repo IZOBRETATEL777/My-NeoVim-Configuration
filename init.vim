@@ -1,56 +1,112 @@
+  " _____   ______   ____    ____    _____    ______   _______              _______   ______   _        ______   ______   ______ 
+ " |_   _| |___  /  / __ \  |  _ \  |  __ \  |  ____| |__   __|     /\     |__   __| |  ____| | |      |____  | |____  | |____  |
+  "  | |      / /  | |  | | | |_) | | |__) | | |__       | |       /  \       | |    | |__    | |          / /      / /      / / 
+  "  | |     / /   | |  | | |  _ <  |  _  /  |  __|      | |      / /\ \      | |    |  __|   | |         / /      / /      / /  
+  " _| |_   / /__  | |__| | | |_) | | | \ \  | |____     | |     / ____ \     | |    | |____  | |____    / /      / /      / /   
+ " |_____| /_____|  \____/  |____/  |_|  \_\ |______|    |_|    /_/    \_\    |_|    |______| |______|  /_/      /_/      /_/    
+                                                                                                                              
+  "                      , _                                  _____                                                       
+  " _,   |)    _,      /|/ \   _             _,             () |    _   |\   ,   _|_   _    ,   |)     _         _       
+ " / |   |/)  / |       |__/  / \_ /|/|/|   / |   /|/|         |   / \_ |/  / \_  |   / \_ / \_ |/\   |/  |  |  |/  |  |_
+ " \/|_/ | \/ \/|_/     | \_/ \_/   | | |_/ \/|_/  | |_/     (/    \_/  |_/  \/   |_/ \_/   \/  |  |/ |_/  \/|/ |_/  \/  
+  "                                                                                                         (|          
+  "
+  "                                                                                                         https://github.com/IZOBRETATEL777
+
+" Download vimplug if necessary
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent execute "!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+" Plugins
 call plug#begin('~/.config/nvim/plugged')
+
+" Nodejs extention for NVIM
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'https://github.com/honza/vim-snippets'
-Plug 'https://github.com/joshdick/onedark.vim'
+
+" Snippet pack
+Plug 'honza/vim-snippets'
+
+" C# engine
+Plug 'OmniSharp/omnisharp-vim'
+
+" Extended language support
 Plug 'sheerun/vim-polyglot'
-Plug 'itchyny/lightline.vim'
-Plug 'scrooloose/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" Icon pack
 Plug 'ryanoasis/vim-devicons'
+Plug 'mhinz/vim-signify'
+
+" Animantions
+Plug 'easymotion/vim-easymotion'
+Plug 'psliwka/vim-smoothie'
+Plug 'antoinemadec/FixCursorHold.nvim'
+
+" Statusbar
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
+
+" File structure
+Plug 'majutsushi/tagbar'
+
+" File explorer
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'unkiwii/vim-nerdtree-sync'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" Formatting stuff
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
+Plug 'tmsvg/pear-tree'
+
+" Commenting
+Plug 'tpope/vim-commentary'
+
+" Storing the last place and file
+Plug 'farmergreg/vim-lastplace'
+Plug 'mhinz/vim-startify'
+
+" Fuzzy file finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" Theme
+Plug 'tribela/vim-transparent'
+Plug 'rhysd/vim-color-spring-night'
+
 call plug#end()
 
+" Coc Plugins
+let g:coc_global_extensions = ['coc-actions', 'coc-snippets', 'coc-spell-checker', 'coc-clangd', 'coc-java', 'coc-pyright', 'coc-omnisharp']
 
-" NEED Tree
-autocmd VimEnter * NERDTree | wincmd p
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-    \ quit | endif
-autocmd FileType nerdtree setlocal nolist
-set encoding=UTF-8
-let g:airline_powerline_fonts = 1
-let g:NERDTreeGitStatusWithFlags=1	
-let g:WebDevIconsUnicodeDecorateFolderNodes=1
-let g:NERDTreeGitStatusNodeColorization=1
-let g:NERDTreeHighlightCursorline=1
+" Tab stuff
+filetype plugin indent on
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
+set textwidth=0
 
-" Theme like Atom
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`colors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termcolors"))
-    set termcolors
-  endif
-endif
+" Interface
+set textwidth=0
+set ruler laststatus=2 showcmd showmode
+set fillchars+=vert:\ 
+set number
 syntax on
-colorscheme onedark
+set ttyfast
+colorscheme spring-night
 
-let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ }
-set tabstop=4
-set shiftwidth=4
-set expandtab
+" Command complition
+set wildmode=longest,list,full wildmenu
+
+" Enable mouse
 set mouse=a
+set guioptions+=a
 
-" COC
+" Necessary for lots of cool vim things
+set nocompatible
+set noshowmode
+set termguicolors
+
+" Automatically change the current directory
+" set autochdir
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
@@ -59,7 +115,7 @@ set encoding=utf-8
 " TextEdit might fail if hidden is not set.
 set hidden
 
-" Some servers have issues with backup files, see #649.
+" Some servers have issues with backup files.
 set nobackup
 set nowritebackup
 
@@ -73,6 +129,31 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
+" NEERDTree
+map <C-n> :NERDTreeToggle<CR>
+autocmd VimEnter * NERDTree | wincmd p
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+     \ quit | endif
+autocmd FileType nerdtree setlocal nolist
+
+let g:webdevicons_enable = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let g:NERDTreeAutoCenter = 1
+let g:nerdtree_tabs_open_on_startup_for_diff = 1
+let g:nerdtree_tabs_smart_startup_focus = 2
+let g:nerdtree_tabs_focus_on_files = 1
+let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_sync_cursorline = 1
+let g:webdevicons_enable_startify = 1
+let g:startify_fortune_use_unicode = 1
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")
@@ -82,36 +163,30 @@ else
   set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
+" Make <tab> used for trigger completion, completion confirm, snippet expand and jump like VSCode.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+let g:coc_snippet_next = '<tab>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <c-space> to open completion menu
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -135,86 +210,62 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+" Auto indent file.
+map <F7> :Format<CR>
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" Create a session
+function! GetUniqueSessionName()
+  let path = fnamemodify(getcwd(), ':~:t')
+  let path = empty(path) ? 'no-project' : path
+  let branch = gitbranch#name()
+  let branch = empty(branch) ? '' : '-' . branch
+  return substitute(path . branch, '/', '-', 'g')
+endfunction
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+autocmd User        StartifyReady silent execute 'SLoad '  . GetUniqueSessionName()
+autocmd VimLeavePre *             silent execute 'SSave! ' . GetUniqueSessionName()
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" Statusbar
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+      \ }
 
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" Framerate
+let g:cursorhold_updatetime = 100
+let g:context_nvim_no_redraw =1
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" Custom setup for filetypes
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+" FZF
+" Allow closing fzf with esc
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+" FZF on ctrl+p
+nmap <C-P> :FZF<CR>
 
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" Tagbar
+map <C-m> :Tagbar<CR>
 

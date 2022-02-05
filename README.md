@@ -12,7 +12,7 @@
 
 - Project explorer and session managment
 - Mouse support
-- Dynamic theme support
+- Terminal background support
 - Autocomplete, linter and snippets
 - Supported languages: **C/C++**, **Python,** **Java**, **C#**. Basic support of HTML/CSS, Markdown and others
 

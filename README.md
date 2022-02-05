@@ -10,10 +10,11 @@
 
 ### Features:
 
-- Project Explorer ([NERD tree](https://github.com/preservim/nerdtree))
+- Project explorer and session managment
 - Mouse support
-- Atom theme ([one-dark](https://github.com/joshdick/onedark.vim))
-- Usage of [LSP](https://langserver.org/) (code autocomplete, checker)
+- Dynamic theme support
+- Autocomplete, linter and snippets
+- Supported languages: **C/C++**, **Python,** **Java**, **C#**. Basic support of HTML/CSS, Markdown and others
 
 ![screen-2](screens/screen-2.png)
 
@@ -21,11 +22,31 @@
 
 ### Requirements
 
-- `Neovim v0.5.0-dev`
-- `NodeJS >= 12`
-- `vim-plug`
+- `Neovim v0.4.0`or higher
 
-If your machine on Ubuntu based Linux distro and supports Ubuntu PPA you can install dev version of **neovim** using this [PPA](https://launchpad.net/~neovim-ppa/+archive/ubuntu/unstable):
+- `NodeJS >= 12`
+
+- `ctags`
+
+- `pynvim`
+
+- `clangd`
+
+- NERD-patched font for terminal
+
+  
+
+### Installation
+
+#### Dependencies
+
+If your machine on Debian/Ubuntu based Linux distro you can just run to install **neovim** :
+
+```bash
+sudo apt install neovim
+```
+
+ If you want to use the latest version and your distro supports Ubuntu PPA you can install **neovim** using this [PPA](https://launchpad.net/~neovim-ppa/+archive/ubuntu/unstable):
 
 ```bash
 sudo add-apt-repository ppa:neovim-ppa/unstable
@@ -44,72 +65,65 @@ sudo snap install --edge nvim --classic
 There are several ways of installing **NodeJS**:
 
  - [NVM](https://github.com/nvm-sh/nvm) - one of the easiest way
-```
+```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 # restart terminal (https://github.com/nvm-sh/nvm#troubleshooting-on-linux)
 nvm install --lts
 ```
- - via [NodeSource Node.js Binary Distributions](https://github.com/nodesource/distributions/blob/master/README.md) by a package manager
- - Downloading ```tar.xz``` from [official website](https://nodejs.org/en/) 
+**Warning!** It can cause problems if you are using Neovim over SSH session.
 
-**Vim-plug** can be installed by the next commands:
+ - Downloading ```tar.xz``` from [official website](https://nodejs.org/en/) 
+ - via [NodeSource Node.js Binary Distributions](https://github.com/nodesource/distributions/blob/master/README.md) by a package manager
+
+**ctags** can be installed by the next command on Debian/Ubuntu:
 
 ```bash
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+sudo apt install exuberant-ctags
 ```
 
-
-
-### Installation
-
-Put `init.vim` into `~/.config/nvim/` folder. Sometimes there is no `nvim` so you can create it manually. Then run `nvim +PlugInstall` in a terminal and press `y` into dialog screen. All plugins will be downloaded automatically.
-
-To enable LSP you required to do some steps.
-
-##### Java
-
-Used https://github.com/neoclide/coc-java
-
-Run `:CocInstall coc-java` . After this command [eclipse.jdt.ls](https://github.com/eclipse/eclipse.jdt.ls)  will be download and configured automatically.
-
-##### C++
-
-Used https://github.com/clangd/coc-clangd
-
-Run `:CocInstall coc-clangd`. After this command `cland` will be downloaded automatically. If you have `clang` installed, you can specify path to it via `:CocConfig`  command and writing path to `clangd` in the given `.json` file. For example, in Mac OS you should write
-
-```json
-{
-    "clangd.path": "/usr/local/Cellar/llvm/11.1.0/bin/clangd"
-}
-```
-
-Install `clangd`:
+Installation of **clangd**:
 
 https://apt.llvm.org/  - `clang` + `clangd`
 
 https://snapcraft.io/clangd - snap
 
-##### Python 3
-
-Working only with Python **3**.
-
-Used https://github.com/fannheyward/coc-pyright
-
-Just run `:CocInstall coc-pyright`  inside your nvim and install `pynvim` in a terminal by the command:
+To install **pynvim** in a terminal by the command:
 
 ```bash
 pip3 install pynvim
 ```
 
+You can choose any **Nerd font** that is suitable for you from [Patched fonts repository](https://github.com/ryanoasis/nerd-fonts). Installation guide is also provided.
 
+You can also select option that I am using you can execute:
 
-### Snippets
+```bash
+cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+```
 
-Snippets are provided by [vim-snippets](https://github.com/honza/vim-snippets) package by default. To activate and use it type `:CocInstall coc-snippets` (https://github.com/neoclide/coc-snippets). 
+And then, select `Dorid Sans Mono Nerd` font in the settings of your terminal.
 
+#### At the end
 
+Put `init.vim` into `~/.config/nvim/` folder. Sometimes there is no `nvim` so you can create it manually. Then run `nvim +PlugInstall` in a terminal and press `y` into dialog screen. All plugins and LSPs will be downloaded automatically.
+
+Also, it is possible to configure Coc using `nvim +CocConfig` command or editing `~/.config/nvim/coc-settings.json`. Personally, I use:
+
+```json
+{
+    "clangd.path": "/usr/bin/clangd-10",
+    "suggest.noselect": false,
+    "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok.jar",
+}
+
+```
+
+ 
 
 ### Greetings
 
+... to the developers of plugins that I used in this configuration and:
+
 https://youtu.be/ssmFzoZS2G8 - this video helped with Java configuration and inspired to create this repo.
+
+https://www.chrisatmachine.com/Neovim/24-neovim-and-java/ - also was interesting
